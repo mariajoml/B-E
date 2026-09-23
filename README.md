@@ -20,7 +20,7 @@ Y abrir http://localhost:4321
 ```
 index.html   → todo el marcado + el sprite SVG del logo
 styles.css   → estilos (tokens de color arriba del todo)
-main.js      → loader, reveals, acordeón, cursor, formulario
+main.js      → loader, reveals, acordeón, riel, etiquetas, cursor, formulario
 assets/      → logo vectorizado, favicon, imagen para redes
 ```
 
@@ -48,7 +48,12 @@ Todo lo que hay que cambiar está marcado con `REEMPLAZAR` en el código.
 
 - **Contacto** (`index.html`, sección `#contacto`): `hola@byp.events` y el
   teléfono son de relleno. El mismo correo está en `main.js` como `DESTINO`.
-- **Redes**: los tres enlaces apuntan a `#`.
+- **Redes**: Instagram, LinkedIn y WhatsApp apuntan a `#`.
+- **Rider** (`index.html`, sección `#rider`): la lista de equipo es genérica.
+  Cambiala por lo que realmente tienen o alquilan. Cada `<li class="tag">`
+  lleva un `data-rot` que es su inclinación en grados.
+- **Minuto a minuto** (`index.html`, sección `#rundown`): es un ejemplo de un
+  evento de un día, no un caso real. Los horarios están en el HTML.
 - **Trabajo** (`index.html`, sección `#trabajo`): las cuatro tarjetas usan el
   ampersand sobre un degradado en lugar de fotos. Para poner fotos reales,
   cambiar cada `<div class="work__art">` por:

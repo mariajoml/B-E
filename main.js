@@ -147,13 +147,15 @@
       requestAnimationFrame(follow);
     })();
 
-    $$('.work__card').forEach(card => {
-      card.addEventListener('mouseenter', () => {
+    const bigCursor = (els, text) => els.forEach(el => {
+      el.addEventListener('mouseenter', () => {
         cur.classList.add('big');
-        lab.textContent = 'Ver';
+        lab.textContent = text;
       });
-      card.addEventListener('mouseleave', () => cur.classList.remove('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
     });
+    bigCursor($$('.work__card'), 'Ver');
+    bigCursor($$('.tag'), 'Arrastrá');
 
     $$('[data-magnetic]').forEach(el => {
       el.addEventListener('mousemove', e => {
@@ -187,4 +189,56 @@
     location.href = `mailto:${DESTINO}?subject=${encodeURIComponent(`Cotización de ${d.tipo}`)}&body=${encodeURIComponent(body)}`;
     note.textContent = 'Abrimos tu correo con el mensaje listo para enviar.';
   });
+
+  /* ---- riel: marca la sección que estás mirando ------------------------ */
+  const railLinks = $$('.rail a');
+  if (railLinks.length) {
+    const spy = () => {
+      const line = innerHeight * 0.4;
+      let active = null;
+      railLinks.forEach(a => {
+        const sec = document.getElementById(a.dataset.sec);
+        if (!sec) return;
+        const r = sec.getBoundingClientRect();
+        if (r.top <= line && r.bottom > line) active = a;
+      });
+      railLinks.forEach(a => a.classList.toggle('on', a === active));
+    };
+    addEventListener('scroll', spy, { passive: true });
+    addEventListener('resize', spy);
+    spy();
+  }
+
+  /* ---- rider: etiquetas que se arrastran ------------------------------- */
+  if (fine) {
+    const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
+    $$('.tag').forEach(tag => {
+      const box = tag.closest('.rider__box');
+      const rot = tag.dataset.rot || 0;
+      let dx = 0, dy = 0, sx = 0, sy = 0, dragging = false;
+      const apply = () => {
+        tag.style.transform = `translate(${dx}px,${dy}px) rotate(${rot}deg)`;
+      };
+      tag.addEventListener('pointerdown', e => {
+        dragging = true;
+        sx = e.clientX - dx;
+        sy = e.clientY - dy;
+        tag.setPointerCapture(e.pointerId);
+        tag.classList.add('drag');
+      });
+      tag.addEventListener('pointermove', e => {
+        if (!dragging) return;
+        // sin salirse del recuadro
+        const pad = 6;
+        const maxX = box.clientWidth - tag.offsetWidth - pad;
+        const maxY = box.clientHeight - tag.offsetHeight - pad;
+        dx = clamp(e.clientX - sx, pad - tag.offsetLeft, maxX - tag.offsetLeft);
+        dy = clamp(e.clientY - sy, pad - tag.offsetTop, maxY - tag.offsetTop);
+        apply();
+      });
+      const end = () => { dragging = false; tag.classList.remove('drag'); };
+      tag.addEventListener('pointerup', end);
+      tag.addEventListener('pointercancel', end);
+    });
+  }
 })();

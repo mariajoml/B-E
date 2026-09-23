@@ -378,3 +378,145 @@ ul,ol{list-style:none;padding:0}
   .statement .w{opacity:1}
   .grain{display:none}
 }
+
+/* ==========================================================================
+   RIEL DE SECCIONES
+   ========================================================================== */
+.rail{
+  position:fixed;right:22px;top:50%;translate:0 -50%;z-index:700;
+  display:flex;flex-direction:column;align-items:flex-end;gap:14px;
+  mix-blend-mode:difference;color:#fff;
+}
+.rail a{display:flex;align-items:center;gap:10px}
+.rail span{
+  font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  opacity:0;translate:8px 0;transition:opacity .4s var(--ease),translate .4s var(--ease);
+}
+.rail i{
+  display:block;width:6px;height:6px;border-radius:99px;background:currentColor;opacity:.35;
+  transition:opacity .4s var(--ease),scale .4s var(--ease);
+}
+.rail a:hover span{opacity:1;translate:0 0}
+.rail a:hover i,.rail a.on i{opacity:1;scale:1.6}
+
+/* ==========================================================================
+   BANDA DE DISCIPLINAS
+   ========================================================================== */
+.band{padding:clamp(26px,3.6vw,48px) 0}
+.band__words{
+  width:var(--shell);margin-inline:auto;
+  display:flex;flex-wrap:wrap;align-items:center;gap:clamp(10px,1.6vw,22px);
+}
+.band__words span{
+  font-size:clamp(24px,3.8vw,52px);font-weight:800;letter-spacing:-.025em;line-height:1.05;
+  font-variation-settings:"wdth" 98;
+}
+.band__words b{font-size:clamp(12px,1.5vw,20px);color:var(--blue)}
+
+/* ==========================================================================
+   RIDER
+   ========================================================================== */
+.rider{padding:clamp(80px,12vw,170px) 0}
+.rider__top{display:flex;flex-wrap:wrap;gap:var(--gap);align-items:flex-end;justify-content:space-between}
+.rider__top .h2{margin-bottom:clamp(30px,4vw,54px)}
+.rider__note{
+  max-width:34ch;font-size:16px;line-height:1.5;
+  color:color-mix(in srgb,#fff 74%,transparent);margin-bottom:clamp(34px,4.6vw,58px);
+}
+.rider__box{
+  position:relative;border:1px solid color-mix(in srgb,#fff 28%,transparent);border-radius:18px;
+  padding:clamp(34px,5vw,64px) clamp(20px,3vw,44px) clamp(56px,6vw,76px);
+  background:color-mix(in srgb,#000 14%,transparent);
+}
+.tags{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.tag{
+  --rot:0deg;
+  border:1px solid color-mix(in srgb,#fff 45%,transparent);border-radius:99px;
+  padding:11px 20px;font-size:clamp(13px,1.2vw,16px);font-weight:600;color:#fff;
+  background:color-mix(in srgb,var(--blue-deep) 70%,transparent);
+  transform:rotate(var(--rot));user-select:none;
+  transition:background .3s var(--ease),border-color .3s var(--ease);
+}
+.tag:nth-child(3n){background:color-mix(in srgb,#000 30%,transparent)}
+.rider__hint{
+  position:absolute;left:50%;bottom:22px;translate:-50% 0;
+  font:500 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  color:color-mix(in srgb,#fff 45%,transparent);
+}
+.pass{
+  position:absolute;top:-16px;left:clamp(16px,3vw,40px);rotate:-3deg;
+  display:flex;flex-direction:column;gap:2px;
+  background:var(--acid);color:var(--ink);border-radius:6px;padding:8px 14px;
+}
+.pass b{font:700 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.pass small{font:500 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;opacity:.65}
+
+@media (pointer:fine){
+  .tag{cursor:grab;touch-action:none}
+  .tag:hover{background:var(--acid);border-color:var(--acid);color:var(--ink)}
+  .tag.drag{cursor:grabbing;z-index:5;position:relative;background:var(--acid);border-color:var(--acid);color:var(--ink)}
+}
+
+/* ==========================================================================
+   MINUTO A MINUTO
+   ========================================================================== */
+.rundown{padding:clamp(80px,12vw,170px) 0}
+.rundown__top{display:flex;flex-wrap:wrap;gap:var(--gap);align-items:flex-end;justify-content:space-between}
+.rundown__top .h2{margin-bottom:clamp(30px,4vw,54px)}
+.rundown__note{max-width:38ch;font-size:16px;line-height:1.5;color:var(--muted);margin-bottom:clamp(34px,4.6vw,58px)}
+.cues{border-top:1px solid var(--rule)}
+.cue{
+  display:grid;grid-template-columns:auto 1fr auto;gap:clamp(16px,3vw,44px);align-items:baseline;
+  padding:16px 0;border-bottom:1px solid var(--rule);
+  transition:background .3s var(--ease),padding-inline .4s var(--ease);
+}
+.cue:hover{background:color-mix(in srgb,var(--blue) 8%,transparent);padding-inline:14px}
+.cue__h{font:500 13px/1 var(--mono);color:var(--blue);min-width:5ch}
+.cue__a{font-size:clamp(15px,1.5vw,20px);font-weight:600;letter-spacing:-.01em}
+.cue__r{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* ==========================================================================
+   PILLS DE CONTACTO
+   ========================================================================== */
+.contact__side .label{margin-bottom:18px}
+.pills{display:flex;flex-wrap:wrap;gap:10px}
+.pills a{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid color-mix(in srgb,var(--ink) 45%,transparent);border-radius:99px;
+  padding:11px 20px;font-size:15px;font-weight:600;
+  transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease);
+}
+.pills a i{font-style:normal;font-size:13px;transition:translate .35s var(--ease)}
+.pills a:hover{background:var(--ink);color:var(--acid);border-color:var(--ink)}
+.pills a:hover i{translate:2px -2px}
+
+/* ==========================================================================
+   LÍNEA META DEL FOOTER
+   ========================================================================== */
+.footer__meta{
+  font:500 11px/1.8 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);padding-bottom:22px;
+}
+.footer__meta b{color:var(--acid);padding-inline:4px}
+
+/* ==========================================================================
+   RESPONSIVE DE LO NUEVO
+   ========================================================================== */
+@media (max-width:900px){
+  .rail{display:none}
+}
+@media (max-width:620px){
+  .cue{grid-template-columns:auto 1fr;row-gap:4px}
+  .cue__r{grid-column:2;justify-self:start}
+  .rider__box{padding-inline:16px}
+  .tags{justify-content:flex-start}
+  .tag{transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .tag{transform:rotate(var(--rot))}
+}
+
+@media (pointer:coarse){
+  .rider__hint{display:none}
+  .rider__box{padding-bottom:clamp(30px,4vw,44px)}
+}

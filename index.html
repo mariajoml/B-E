@@ -36,22 +36,35 @@
     <svg class="mark" viewBox="0 0 349 152" role="img" aria-label="B&amp;P"><use href="#bp-wordmark"/></svg>
   </a>
   <nav class="nav__links" aria-label="Principal">
-    <a href="#trabajo">Trabajo</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#proceso">Proceso</a>
     <a href="#estudio">Estudio</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#rider">Rider</a>
+    <a href="#trabajo">Trabajo</a>
+    <a href="#proceso">Proceso</a>
   </nav>
   <a class="btn btn--pill" data-magnetic href="#contacto"><span>Cotizar</span></a>
   <button class="nav__burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><i></i><i></i></button>
 </header>
 
 <div class="menu" id="menu" hidden>
-  <a href="#trabajo"><span>01</span> Trabajo</a>
+  <a href="#estudio"><span>01</span> Estudio</a>
   <a href="#servicios"><span>02</span> Servicios</a>
-  <a href="#proceso"><span>03</span> Proceso</a>
-  <a href="#estudio"><span>04</span> Estudio</a>
-  <a href="#contacto"><span>05</span> Contacto</a>
+  <a href="#rider"><span>03</span> Rider</a>
+  <a href="#trabajo"><span>04</span> Trabajo</a>
+  <a href="#proceso"><span>05</span> Proceso</a>
+  <a href="#rundown"><span>06</span> Minuto a minuto</a>
+  <a href="#contacto"><span>07</span> Contacto</a>
 </div>
+
+<nav class="rail" aria-label="Secciones">
+  <a href="#estudio" data-sec="estudio"><span>Estudio</span><i></i></a>
+  <a href="#servicios" data-sec="servicios"><span>Servicios</span><i></i></a>
+  <a href="#rider" data-sec="rider"><span>Rider</span><i></i></a>
+  <a href="#trabajo" data-sec="trabajo"><span>Trabajo</span><i></i></a>
+  <a href="#proceso" data-sec="proceso"><span>Proceso</span><i></i></a>
+  <a href="#rundown" data-sec="rundown"><span>Minuto a minuto</span><i></i></a>
+  <a href="#contacto" data-sec="contacto"><span>Contacto</span><i></i></a>
+</nav>
 
 <main id="main">
 
@@ -85,6 +98,13 @@
   </div>
 
   <div class="hero__scroll" aria-hidden="true"><span>Scroll</span><i></i></div>
+</section>
+
+<!-- ═══ BANDA ═══ -->
+<section class="band" data-theme="acid" aria-label="Disciplinas">
+  <p class="band__words">
+    <span>Corporativo</span><b>&#10022;</b><span>Lanzamientos</span><b>&#10022;</b><span>Festivales</span><b>&#10022;</b><span>BTL</span><b>&#10022;</b><span>Congresos</span><b>&#10022;</b><span>Celebraciones</span><b>&#10022;</b><span>Producción técnica</span>
+  </p>
 </section>
 
 <!-- ═══ MANIFIESTO ═══ -->
@@ -175,12 +195,48 @@
   </div>
 </section>
 
+<!-- ═══ RIDER ═══ -->
+<section class="rider" id="rider" data-theme="blue">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="idx">(03)</span>
+      <span class="label">Rider técnico</span>
+    </div>
+    <div class="rider__top">
+      <h2 class="h2 reveal">Todo lo que<br>entra en el camión.</h2>
+      <p class="rider__note reveal">Equipo propio y proveedores fijos. Nada se subcontrata a último momento.</p>
+    </div>
+    <div class="rider__box">
+      <span class="pass" aria-hidden="true"><b>Acceso total</b><small>Área técnica</small></span>
+      <ul class="tags" id="tags">
+        <li class="tag" data-rot="-4" style="--rot:-4deg">Line array</li>
+      <li class="tag" data-rot="3" style="--rot:3deg">Moving heads</li>
+      <li class="tag" data-rot="-2" style="--rot:-2deg">Pantalla LED P3.9</li>
+      <li class="tag" data-rot="5" style="--rot:5deg">Truss y rigging</li>
+      <li class="tag" data-rot="-3" style="--rot:-3deg">Consola digital</li>
+      <li class="tag" data-rot="2" style="--rot:2deg">Intercom</li>
+      <li class="tag" data-rot="-5" style="--rot:-5deg">Planta eléctrica</li>
+      <li class="tag" data-rot="4" style="--rot:4deg">Cámaras</li>
+      <li class="tag" data-rot="-2" style="--rot:-2deg">Streaming</li>
+      <li class="tag" data-rot="3" style="--rot:3deg">Escenario modular</li>
+      <li class="tag" data-rot="-4" style="--rot:-4deg">Backline</li>
+      <li class="tag" data-rot="2" style="--rot:2deg">Walkies</li>
+      <li class="tag" data-rot="-3" style="--rot:-3deg">Climatización</li>
+      <li class="tag" data-rot="4" style="--rot:4deg">Piso técnico</li>
+      <li class="tag" data-rot="-2" style="--rot:-2deg">Hazer y humo</li>
+      <li class="tag" data-rot="3" style="--rot:3deg">Radiofrecuencia</li>
+      </ul>
+      <p class="rider__hint">Arrastrá las etiquetas</p>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ TRABAJO ═══ -->
 <!-- REEMPLAZAR: sustituir los .work__art por <img> con fotos reales. Ver README. -->
 <section class="work" id="trabajo" data-theme="paper">
   <div class="shell">
     <div class="sec-head">
-      <span class="idx">(03)</span>
+      <span class="idx">(04)</span>
       <span class="label">Trabajo seleccionado</span>
     </div>
     <h2 class="h2 reveal">Algunas cosas<br>que montamos.</h2>
@@ -207,10 +263,10 @@
 </section>
 
 <!-- ═══ PROCESO ═══ -->
-<section class="process" id="proceso" data-theme="blue">
+<section class="process" id="proceso" data-theme="ink">
   <div class="shell">
     <div class="sec-head">
-      <span class="idx">(04)</span>
+      <span class="idx">(05)</span>
       <span class="label">Proceso</span>
     </div>
     <h2 class="h2 reveal">Cuatro pasos.<br>Cero sorpresas.</h2>
@@ -223,11 +279,36 @@
   </div>
 </section>
 
+<!-- ═══ MINUTO A MINUTO ═══ -->
+<section class="rundown" id="rundown" data-theme="paper">
+  <div class="shell">
+    <div class="sec-head">
+      <span class="idx">(06)</span>
+      <span class="label">Minuto a minuto</span>
+    </div>
+    <div class="rundown__top">
+      <h2 class="h2 reveal">Un día nuestro,<br>hora por hora.</h2>
+      <p class="rundown__note reveal">Ejemplo de un evento de un día. Cada proyecto tiene el suyo, escrito y firmado antes del montaje.</p>
+    </div>
+    <ul class="cues reveal">
+      <li class="cue"><span class="cue__h">07:00</span><span class="cue__a">Ingreso a sede, descarga y marcado de piso</span><span class="cue__r">Producción</span></li>
+      <li class="cue"><span class="cue__h">09:00</span><span class="cue__a">Montaje de estructura, truss y rigging</span><span class="cue__r">Técnica</span></li>
+      <li class="cue"><span class="cue__h">12:30</span><span class="cue__a">Audio, luces y video en posición</span><span class="cue__r">Técnica</span></li>
+      <li class="cue"><span class="cue__h">15:00</span><span class="cue__a">Prueba de sonido y pasada de contenidos</span><span class="cue__r">Técnica</span></li>
+      <li class="cue"><span class="cue__h">16:30</span><span class="cue__a">Ensayo con protagonistas y cronómetro en mano</span><span class="cue__r">Dirección</span></li>
+      <li class="cue"><span class="cue__h">17:45</span><span class="cue__a">Briefing de staff, catering y acreditación</span><span class="cue__r">Producción</span></li>
+      <li class="cue"><span class="cue__h">18:30</span><span class="cue__a">Apertura de puertas</span><span class="cue__r">Staff</span></li>
+      <li class="cue"><span class="cue__h">19:15</span><span class="cue__a">Arranca el show</span><span class="cue__r">Dirección</span></li>
+      <li class="cue"><span class="cue__h">22:00</span><span class="cue__a">Cierre, desmontaje y carga</span><span class="cue__r">Producción</span></li>
+    </ul>
+  </div>
+</section>
+
 <!-- ═══ CONTACTO ═══ -->
 <section class="contact" id="contacto" data-theme="acid">
   <div class="shell">
     <div class="sec-head">
-      <span class="idx">(05)</span>
+      <span class="idx">(07)</span>
       <span class="label">Contacto</span>
     </div>
     <h2 class="contact__big reveal">Hablemos<em>.</em></h2>
@@ -250,11 +331,14 @@
 
       <aside class="contact__side reveal">
         <!-- REEMPLAZAR: datos reales de contacto -->
-        <div><span class="label">Escribinos</span><a class="big-link" href="mailto:hola@byp.events">hola@byp.events</a></div>
-        <div><span class="label">Teléfono</span><a class="big-link" href="tel:+000000000">+00 000 000 000</a></div>
-        <div><span class="label">Redes</span>
-          <ul class="socials"><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">TikTok</a></li></ul>
-        </div>
+        <span class="label">Escribinos por donde te quede cómodo</span>
+        <ul class="pills">
+          <li><a href="mailto:hola@byp.events">hola@byp.events <i aria-hidden="true">&#8599;</i></a></li>
+          <li><a href="tel:+000000000">+00 000 000 000 <i aria-hidden="true">&#8599;</i></a></li>
+          <li><a href="#">Instagram <i aria-hidden="true">&#8599;</i></a></li>
+          <li><a href="#">LinkedIn <i aria-hidden="true">&#8599;</i></a></li>
+          <li><a href="#">WhatsApp <i aria-hidden="true">&#8599;</i></a></li>
+        </ul>
       </aside>
     </div>
   </div>
@@ -268,6 +352,9 @@
     <span class="label" id="clock">--:--</span>
   </div>
   <svg class="footer__mark" viewBox="0 0 349 152" aria-hidden="true"><use href="#bp-wordmark"/></svg>
+  <p class="shell footer__meta">
+    B&amp;P <b>&middot;</b> Productora de eventos <b>&middot;</b> hola@byp.events <b>&middot;</b> Disponibles para montar algo
+  </p>
   <div class="shell footer__bottom">
     <span>&copy; <span id="year">2026</span> B&amp;P</span>
     <a href="#top">Volver arriba &uarr;</a>
