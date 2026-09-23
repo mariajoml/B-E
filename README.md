@@ -19,48 +19,51 @@ Y abrir http://localhost:4321
 
 ```
 index.html   → todo el marcado + el sprite SVG del logo
-styles.css   → estilos (tokens de color arriba del todo)
-main.js      → loader, reveals, acordeón, riel, etiquetas, cursor, formulario
+styles.css   → estilos (los tokens de color y tipografía están arriba del todo)
+main.js      → loader, reveals, riel, parallax, cursor, formulario
 assets/      → logo vectorizado, favicon, imagen para redes
+assets/mock/ → imágenes generadas, provisionales
 ```
 
-## Marca
+## Dirección visual
+
+Oscuro cinematográfico. Negro de base, el azul de marca usado como luz y
+crema para el texto. Referencias: Siena Film Foundation (el ticket troquelado,
+el collage tipográfico, las fichas de proyecto), Cassette y Cloudstudio.
 
 | Token | Valor | Uso |
 |---|---|---|
-| `--blue` | `#1800AC` | Color del logo. Base de la marca. |
-| `--acid` | `#D8FF3E` | Acento: botones, índices, detalles. |
-| `--ink` | `#07030F` | Secciones oscuras. |
-| `--paper` | `#F3F1EA` | Secciones claras. |
+| `--black` | `#070708` | Fondo principal. |
+| `--void` | `#0D0D11` | Secciones alternas. |
+| `--cream` | `#F2EFE6` | Texto y tickets. |
+| `--blue` | `#1800AC` | Color del logo. Horarios, detalles. |
+| `--blue-lift` | `#4526FF` | El azul como luz: acentos, hovers. |
 
-Tipografía: **Archivo** (variable, se estira con `wdth`) + **JetBrains Mono**
-para las etiquetas chicas. Ambas desde Google Fonts.
+Tipografía: **Anton** para titulares (condensada, mayúsculas), **Manrope**
+para leer y **JetBrains Mono** para rótulos, horarios y datos técnicos.
 
-El logo se vectorizó a partir del PNG original (`assets/_source-logo.png`)
-y vive como sprite SVG dentro de `index.html` (`#bp-wordmark` y `#bp-amp`).
-Escala nítido a cualquier tamaño y toma el color del contexto con
-`currentColor`. Si llega el logo oficial en vectorial, reemplazar esos dos
-`<symbol>`.
+El logo se vectorizó desde el PNG original (`assets/_source-logo.png`) y vive
+como sprite SVG dentro de `index.html` (`#bp-wordmark` y `#bp-amp`). Escala
+nítido a cualquier tamaño y toma el color del contexto con `currentColor`. Si
+llega el logo oficial en vectorial, reemplazar esos dos `<symbol>`.
 
 ## Qué falta reemplazar
 
 Todo lo que hay que cambiar está marcado con `REEMPLAZAR` en el código.
 
-- **Contacto** (`index.html`, sección `#contacto`): `hola@byp.events` y el
-  teléfono son de relleno. El mismo correo está en `main.js` como `DESTINO`.
+- **Las imágenes de `assets/mock/` no son fotos.** Están generadas por
+  script (`scratchpad/mock.py`): son manchas de luz sobre negro que simulan
+  un escenario. Sirven para ver el diseño, no para publicar. Reemplazar por
+  fotografía real de eventos manteniendo los mismos nombres de archivo.
+- **Foto de Mónica**: la ficha de fundadora tiene un recuadro vacío que dice
+  "pendiente". Poner `<img src="assets/monica.jpg" alt="Mónica Pérez Ospina">`
+  dentro de `.founder__portrait` y borrar el `<span class="founder__slot">`.
+- **Contacto**: `hola@byp.events` y el teléfono son de relleno. El mismo
+  correo está en `main.js` como `DESTINO`.
 - **Redes**: Instagram, LinkedIn y WhatsApp apuntan a `#`.
-- **Rider** (`index.html`, sección `#rider`): la lista de equipo es genérica.
-  Cambiala por lo que realmente tienen o alquilan. Cada `<li class="tag">`
-  lleva un `data-rot` que es su inclinación en grados.
-- **Minuto a minuto** (`index.html`, sección `#rundown`): es un ejemplo de un
-  evento de un día, no un caso real. Los horarios están en el HTML.
-- **Trabajo** (`index.html`, sección `#trabajo`): las cuatro tarjetas usan el
-  ampersand sobre un degradado en lugar de fotos. Para poner fotos reales,
-  cambiar cada `<div class="work__art">` por:
-  ```html
-  <img class="work__art" src="assets/trabajo-01.jpg" alt="…">
-  ```
-  Los títulos y bajadas también son genéricos: no son clientes reales.
+- **Trabajo**: los cuatro proyectos son genéricos. No son clientes reales.
+- **Rider**: la lista de equipo es estándar, no sé qué tienen propio.
+- **Minuto a minuto**: es un ejemplo, no un evento real.
 
 ## Formulario
 

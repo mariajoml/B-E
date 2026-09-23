@@ -7,17 +7,17 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine    = matchMedia('(pointer: fine)').matches;
 
-  /* ---- loader --------------------------------------------------------- */
+  /* ---- loader ---------------------------------------------------------- */
   const loader = $('#loader');
   const hideLoader = () => {
     if (!loader || loader.classList.contains('done')) return;
     loader.classList.add('done');
-    setTimeout(() => loader.remove(), 900);
+    setTimeout(() => loader.remove(), 1100);
   };
-  window.addEventListener('load', () => setTimeout(hideLoader, reduced ? 0 : 500));
-  setTimeout(hideLoader, 2600); // red lenta: no dejar la cortina pegada
+  window.addEventListener('load', () => setTimeout(hideLoader, reduced ? 0 : 620));
+  setTimeout(hideLoader, 2800); // red lenta: no dejar la cortina pegada
 
-  /* ---- año + reloj local ---------------------------------------------- */
+  /* ---- año y hora local ------------------------------------------------ */
   $('#year').textContent = new Date().getFullYear();
   const clock = $('#clock');
   const tick = () => {
@@ -41,47 +41,63 @@
   $$('a', menu).forEach(a => a.addEventListener('click', () => setMenu(false)));
   addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) setMenu(false); });
 
-  /* ---- nav: ocultar al bajar ------------------------------------------ */
+  /* ---- nav: se esconde al bajar --------------------------------------- */
   const nav = $('#nav');
   let lastY = 0;
   addEventListener('scroll', () => {
     const y = scrollY;
-    nav.classList.toggle('hide', y > 260 && y > lastY && menu.hidden);
+    nav.classList.toggle('hide', y > 280 && y > lastY && menu.hidden);
     lastY = y;
   }, { passive: true });
 
-  /* ---- reveal on scroll ------------------------------------------------ */
-  // el hero se revela con la intro, no al hacer scroll
+  /* ---- reveals --------------------------------------------------------- */
   const heroReveals = $$('.hero .reveal');
   heroReveals.forEach((el, i) =>
-    setTimeout(() => el.classList.add('on'), reduced ? 0 : 1150 + i * 110));
+    setTimeout(() => el.classList.add('on'), reduced ? 0 : 1400 + i * 130));
 
-  const revealIO = new IntersectionObserver((entries) => {
+  const revealIO = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
       if (!e.isIntersecting) return;
-      setTimeout(() => e.target.classList.add('on'), reduced ? 0 : i * 70);
+      setTimeout(() => e.target.classList.add('on'), reduced ? 0 : i * 90);
       revealIO.unobserve(e.target);
     });
   }, { rootMargin: '0px 0px -8% 0px' });
   $$('.reveal').forEach(el => { if (!heroReveals.includes(el)) revealIO.observe(el); });
 
-  /* ---- nav: color según la sección que cruza ---------------------------- */
+  /* ---- nav y riel: color según la sección que cruzan -------------------- */
   const themed = $$('[data-theme]');
-  const dark = new Set(['blue', 'ink']);
-  const paintNav = () => {
-    const line = 44;
+  const railLinks = $$('.rail a');
+  const rail = $('.rail');
+  const light = new Set(['cream']);
+
+  const themeAt = (y) => {
     let cur = themed[0];
     for (const s of themed) {
       const r = s.getBoundingClientRect();
-      if (r.top <= line && r.bottom > line) cur = s;
+      if (r.top <= y && r.bottom > y) cur = s;
     }
-    nav.style.color = dark.has(cur.dataset.theme) ? '#fff' : '#07030F';
+    return cur?.dataset.theme;
   };
-  addEventListener('scroll', paintNav, { passive: true });
-  addEventListener('resize', paintNav);
-  paintNav();
 
-  /* ---- statement: palabras que encienden al hacer scroll --------------- */
+  const paintChrome = () => {
+    nav.style.color = light.has(themeAt(46)) ? '#0A0A0C' : '#F2EFE6';
+    if (rail) rail.style.color = light.has(themeAt(innerHeight / 2)) ? '#0A0A0C' : '#F2EFE6';
+
+    const line = innerHeight * 0.42;
+    let active = null;
+    railLinks.forEach(a => {
+      const sec = document.getElementById(a.dataset.sec);
+      if (!sec) return;
+      const r = sec.getBoundingClientRect();
+      if (r.top <= line && r.bottom > line) active = a;
+    });
+    railLinks.forEach(a => a.classList.toggle('on', a === active));
+  };
+  addEventListener('scroll', paintChrome, { passive: true });
+  addEventListener('resize', paintChrome);
+  paintChrome();
+
+  /* ---- manifiesto: las palabras se encienden al hacer scroll ----------- */
   const statement = $('[data-words]');
   if (statement) {
     const words = statement.textContent.trim().split(/\s+/);
@@ -103,34 +119,10 @@
     paint();
   }
 
-  /* ---- servicios: acordeón + tinte ------------------------------------- */
-  const lum = (hex) => {
-    const n = parseInt(hex.slice(1), 16);
-    return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) / 255;
-  };
-  $$('.svc__row').forEach(row => {
-    const tint = row.dataset.tint;
-    row.style.setProperty('--tint', tint);
-    row.style.setProperty('--tint-fg', lum(tint) > 0.6 ? '#07030F' : '#ffffff');
-
-    const head = $('.svc__head', row);
-    head.addEventListener('click', () => {
-      const open = row.classList.toggle('open');
-      head.setAttribute('aria-expanded', String(open));
-      if (open) {
-        $$('.svc__row.open').forEach(o => {
-          if (o === row) return;
-          o.classList.remove('open');
-          $('.svc__head', o).setAttribute('aria-expanded', 'false');
-        });
-      }
-    });
-  });
-
-  /* ---- cursor + botones magnéticos ------------------------------------- */
+  /* ---- cursor y botones magnéticos ------------------------------------- */
   if (fine && !reduced) {
     const cur = $('.cursor');
-    const dot = $('.cursor__dot');
+    const ring = $('.cursor__ring');
     const lab = $('.cursor__label');
     let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
 
@@ -140,10 +132,11 @@
     }, { passive: true });
 
     (function follow() {
-      cx += (tx - cx) * 0.18;
-      cy += (ty - cy) * 0.18;
-      dot.style.transform = `translate3d(${cx}px,${cy}px,0)`;
-      lab.style.transform = `translate3d(${cx}px,${cy}px,0)`;
+      cx += (tx - cx) * 0.16;
+      cy += (ty - cy) * 0.16;
+      const t = `translate3d(${cx}px,${cy}px,0)`;
+      ring.style.transform = t;
+      lab.style.transform = t;
       requestAnimationFrame(follow);
     })();
 
@@ -154,20 +147,19 @@
       });
       el.addEventListener('mouseleave', () => cur.classList.remove('big'));
     });
-    bigCursor($$('.work__card'), 'Ver');
-    bigCursor($$('.tag'), 'Arrastrá');
+    bigCursor($$('.reel__frame'), 'Ver');
 
     $$('[data-magnetic]').forEach(el => {
       el.addEventListener('mousemove', e => {
         const r = el.getBoundingClientRect();
         el.style.transform =
-          `translate(${(e.clientX - r.left - r.width / 2) * 0.28}px,${(e.clientY - r.top - r.height / 2) * 0.4}px)`;
+          `translate(${(e.clientX - r.left - r.width / 2) * 0.22}px,${(e.clientY - r.top - r.height / 2) * 0.32}px)`;
       });
       el.addEventListener('mouseleave', () => { el.style.transform = ''; });
     });
   }
 
-  /* ---- formulario: compone un mail (sin backend) ----------------------- */
+  /* ---- formulario: arma un mail, no hay backend ------------------------ */
   const form = $('#form');
   const note = $('#form-note');
   const DESTINO = 'hola@byp.events'; // REEMPLAZAR por el correo real
@@ -190,55 +182,25 @@
     note.textContent = 'Abrimos tu correo con el mensaje listo para enviar.';
   });
 
-  /* ---- riel: marca la sección que estás mirando ------------------------ */
-  const railLinks = $$('.rail a');
-  if (railLinks.length) {
-    const spy = () => {
-      const line = innerHeight * 0.4;
-      let active = null;
-      railLinks.forEach(a => {
-        const sec = document.getElementById(a.dataset.sec);
-        if (!sec) return;
-        const r = sec.getBoundingClientRect();
-        if (r.top <= line && r.bottom > line) active = a;
+  /* ---- parallax de las imágenes --------------------------------------- */
+  if (!reduced) {
+    const layers = $$('[data-parallax]');
+    let ticking = false;
+    const move = () => {
+      layers.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > innerHeight + 200) return;
+        const mid = r.top + r.height / 2 - innerHeight / 2;
+        el.style.transform = `translate3d(0,${(-mid * +el.dataset.parallax).toFixed(1)}px,0)`;
       });
-      railLinks.forEach(a => a.classList.toggle('on', a === active));
+      ticking = false;
     };
-    addEventListener('scroll', spy, { passive: true });
-    addEventListener('resize', spy);
-    spy();
-  }
-
-  /* ---- rider: etiquetas que se arrastran ------------------------------- */
-  if (fine) {
-    const clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
-    $$('.tag').forEach(tag => {
-      const box = tag.closest('.rider__box');
-      const rot = tag.dataset.rot || 0;
-      let dx = 0, dy = 0, sx = 0, sy = 0, dragging = false;
-      const apply = () => {
-        tag.style.transform = `translate(${dx}px,${dy}px) rotate(${rot}deg)`;
-      };
-      tag.addEventListener('pointerdown', e => {
-        dragging = true;
-        sx = e.clientX - dx;
-        sy = e.clientY - dy;
-        tag.setPointerCapture(e.pointerId);
-        tag.classList.add('drag');
-      });
-      tag.addEventListener('pointermove', e => {
-        if (!dragging) return;
-        // sin salirse del recuadro
-        const pad = 6;
-        const maxX = box.clientWidth - tag.offsetWidth - pad;
-        const maxY = box.clientHeight - tag.offsetHeight - pad;
-        dx = clamp(e.clientX - sx, pad - tag.offsetLeft, maxX - tag.offsetLeft);
-        dy = clamp(e.clientY - sy, pad - tag.offsetTop, maxY - tag.offsetTop);
-        apply();
-      });
-      const end = () => { dragging = false; tag.classList.remove('drag'); };
-      tag.addEventListener('pointerup', end);
-      tag.addEventListener('pointercancel', end);
-    });
+    addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(move);
+    }, { passive: true });
+    addEventListener('resize', move);
+    move();
   }
 })();
