@@ -1,4 +1,4 @@
-# B&P — Landing
+# B&P, landing
 
 Landing de una sola página para la productora de eventos **B&P**.
 HTML, CSS y JavaScript planos: sin framework, sin build, sin dependencias.

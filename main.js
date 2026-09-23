@@ -1,4 +1,4 @@
-/* B&P — interacciones. Vanilla JS, sin dependencias. */
+/* B&P. Interacciones en JavaScript plano, sin dependencias. */
 (() => {
   'use strict';
 
@@ -21,9 +21,9 @@
   $('#year').textContent = new Date().getFullYear();
   const clock = $('#clock');
   const tick = () => {
-    clock.textContent = new Date().toLocaleTimeString('es', {
+    clock.textContent = 'Hora local ' + new Date().toLocaleTimeString('es', {
       hour: '2-digit', minute: '2-digit'
-    }) + ' — hora local';
+    });
   };
   tick();
   setInterval(tick, 30000);
@@ -184,7 +184,7 @@
       '',
       d.mensaje || ''
     ].join('\n');
-    location.href = `mailto:${DESTINO}?subject=${encodeURIComponent(`Cotización — ${d.tipo}`)}&body=${encodeURIComponent(body)}`;
+    location.href = `mailto:${DESTINO}?subject=${encodeURIComponent(`Cotización de ${d.tipo}`)}&body=${encodeURIComponent(body)}`;
     note.textContent = 'Abrimos tu correo con el mensaje listo para enviar.';
   });
 })();
