@@ -55,9 +55,6 @@ Todo lo que hay que cambiar está marcado con `REEMPLAZAR` en el código.
   script (`scratchpad/mock.py`): son manchas de luz sobre negro que simulan
   un escenario. Sirven para ver el diseño, no para publicar. Reemplazar por
   fotografía real de eventos manteniendo los mismos nombres de archivo.
-- **Foto de Mónica**: la ficha de fundadora tiene un recuadro vacío que dice
-  "pendiente". Poner `<img src="assets/monica.jpg" alt="Mónica Pérez Ospina">`
-  dentro de `.founder__portrait` y borrar el `<span class="founder__slot">`.
 - **Contacto**: `hola@byp.events` y el teléfono son de relleno. El mismo
   correo está en `main.js` como `DESTINO`.
 - **Redes**: Instagram, LinkedIn y WhatsApp apuntan a `#`.
